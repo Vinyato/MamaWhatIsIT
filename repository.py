@@ -1,7 +1,7 @@
-from sqlalchemy import select
+from sqlalchemy import select, update
 from database import ConstantsORM, new_session
 from schemas import SConstantsAdd, SConstants, SValues, SResult, SConstantsDict
-from solver import solve
+from solver_function import Solver as solve
 
 
 class ConstantsRepository:
@@ -44,7 +44,9 @@ class ConstantsRepository:
                 task_schemas.pfluid,
                 task_schemas.muliqour,
             )
-
             values = [SValues(x=x[i], y=y[i]) for i in range(len(x))]
             result_object = SResult(value=values)
+            stmt = update(ConstantsORM).where(ConstantsORM.id == consts_id).values(result=result_object.dict())
+            await session.execute(stmt)
+            await session.commit()
             return result_object

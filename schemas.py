@@ -17,6 +17,7 @@ class SConstantsAdd(BaseModel):
 class SConstants(SConstantsAdd):
     id: int
     created: str
+    result: dict | None
 
     model_config = ConfigDict(from_attributes=True)
 

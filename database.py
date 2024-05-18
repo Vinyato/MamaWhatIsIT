@@ -1,4 +1,6 @@
 import datetime
+
+from sqlalchemy import Column, JSON
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from cfg import DB_URL
@@ -29,3 +31,4 @@ class ConstantsORM(Model):
     psolid: Mapped[int]
     pfluid: Mapped[int]
     muliqour: Mapped[float]
+    result = Column(JSON, nullable=True)
